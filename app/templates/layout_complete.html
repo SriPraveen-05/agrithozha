@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Agricultural Innovation Platform - AI-powered crop and fertilizer recommendations for modern farming">
+    <meta name="keywords" content="agriculture, AI, crop recommendation, fertilizer, farming, smart agriculture">
+    <meta name="author" content="AgriInnovative">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Modern Design System -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modern_design.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/complete_design.css') }}">
+    
+    <!-- Page-specific styles -->
+    {% block styles %}{% endblock %}
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/android-chrome-192x192.png') }}">
+    
+    <title>{% block title %}Agricultural Innovation Platform{% endblock %}</title>
+</head>
+
+<body class="modern-body">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <img src="{{ url_for('static', filename='images/android-chrome-192x192.png') }}" alt="AgriInnovative">
+                <h2>AgriThozha</h2>
+            </div>
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+            </div>
+            <p>Loading your agricultural solutions...</p>
+        </div>
+    </div>
+
+    <!-- Modern Navigation -->
+    <nav class="navbar modern-navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="{{ url_for('home') }}" class="brand-link">
+                    <img src="{{ url_for('static', filename='images/android-chrome-192x192.png') }}" alt="AgriThozha" class="brand-logo">
+                    <span class="brand-text">AgriThozha</span>
+                </a>
+            </div>
+            
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
+            
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="{{ url_for('home') }}" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{{ url_for('dashboard') }}" class="nav-link">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    
+                    <li class="nav-item dropdown">
+                        <a href="{{ url_for('services') }}" class="nav-link dropdown-toggle">
+                            <i class="fas fa-cogs"></i>
+                            <span>Services</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="{{ url_for('crop_recommendation') }}" class="dropdown-item">
+                                <i class="fas fa-seedling"></i>
+                                <div>
+                                    <span class="dropdown-title">Crop Recommendation</span>
+                                    <span class="dropdown-desc">AI-powered crop suggestions</span>
+                                </div>
+                            </a>
+                            <a href="{{ url_for('fertilizer_recommendation') }}" class="dropdown-item">
+                                <i class="fas fa-flask"></i>
+                                <div>
+                                    <span class="dropdown-title">Fertilizer Guide</span>
+                                    <span class="dropdown-desc">Smart fertilizer recommendations</span>
+                                </div>
+                            </a>
+                            <a href="{{ url_for('disease_identification') }}" class="dropdown-item">
+                                <i class="fas fa-search"></i>
+                                <div>
+                                    <span class="dropdown-title">Disease Detection</span>
+                                    <span class="dropdown-desc">Identify plant diseases</span>
+                                </div>
+                            </a>
+                            <a href="{{ url_for('check_weather') }}" class="dropdown-item">
+                                <i class="fas fa-cloud-sun"></i>
+                                <div>
+                                    <span class="dropdown-title">Weather Check</span>
+                                    <span class="dropdown-desc">Real-time weather data</span>
+                                </div>
+                            </a>
+                            <a href="{{ url_for('data_analysis') }}" class="dropdown-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <div>
+                                    <span class="dropdown-title">Data Analysis</span>
+                                    <span class="dropdown-desc">Agricultural insights</span>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="{{ url_for('news') }}" class="nav-link">
+                            <i class="fas fa-newspaper"></i>
+                            <span>News</span>
+                        </a>
+                    </li>
+                    
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{{ url_for('connect_home') }}" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Connect</span>
+                        </a>
+                    </li>
+                    <li class="nav-item user-menu">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-dropdown">
+                            <div class="user-info">
+                                <span class="user-name">{{ current_user.first_name }}</span>
+                                <span class="user-email">{{ current_user.email }}</span>
+                            </div>
+                            <div class="user-actions">
+                                <a href="{{ url_for('dashboard') }}" class="user-action">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                                <a href="{{ url_for('logout') }}" class="user-action">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Logout</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{{ url_for('login') }}" class="nav-link">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Login</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('sign_up') }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-user-plus"></i>
+                            <span>Sign Up</span>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% block body %}{% endblock %}
+    </main>
+
+    <!-- Modern Feedback Button -->
+    <button id="feedbackBtn" class="feedback-btn" data-aos="fade-left" data-aos-delay="1000">
+        <i class="fas fa-comment-dots"></i>
+        <span>Feedback</span>
+    </button>
+
+    <!-- Modern Feedback Modal -->
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>💬 Share Your Feedback</h3>
+                <button class="close-btn" id="closeFeedback">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="feedbackForm" class="modal-body">
+                <div class="form-group">
+                    <label for="feedbackName" class="form-label">Name</label>
+                    <input type="text" id="feedbackName" class="form-input" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="feedbackEmail" class="form-label">Email</label>
+                    <input type="email" id="feedbackEmail" class="form-input" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="feedbackMessage" class="form-label">Message</label>
+                    <textarea id="feedbackMessage" class="form-input" rows="4" placeholder="Share your thoughts..." required></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" id="cancelFeedback">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Send Feedback</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ 'error' if category == 'error' else 'success' }}" data-aos="fade-left">
+            <div class="alert-content">
+                <i class="fas fa-{{ 'exclamation-circle' if category == 'error' else 'check-circle' }}"></i>
+                <span>{{ message }}</span>
+            </div>
+            <button class="alert-close" onclick="this.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Modern Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <img src="{{ url_for('static', filename='images/android-chrome-192x192.png') }}" alt="AgriThozha" class="footer-logo">
+                        <h4>AgriThozha</h4>
+                    </div>
+                    <p>Revolutionizing agriculture with AI-powered solutions for better crop yields and sustainable farming practices.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" data-aos="zoom-in" data-aos-delay="100">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" data-aos="zoom-in" data-aos-delay="200">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link" data-aos="zoom-in" data-aos-delay="300">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="social-link" data-aos="zoom-in" data-aos-delay="400">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-link" data-aos="zoom-in" data-aos-delay="500">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Services</h5>
+                    <ul>
+                        <li><a href="{{ url_for('crop_recommendation') }}">Crop Recommendation</a></li>
+                        <li><a href="{{ url_for('fertilizer_recommendation') }}">Fertilizer Guide</a></li>
+                        <li><a href="{{ url_for('disease_identification') }}">Disease Detection</a></li>
+                        <li><a href="{{ url_for('check_weather') }}">Weather Check</a></li>
+                        <li><a href="{{ url_for('data_analysis') }}">Data Analysis</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Resources</h5>
+                    <ul>
+                        <li><a href="{{ url_for('news') }}">News & Updates</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Contact Info</h5>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@agriinnovative.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Farm Street, Agriculture City</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 AgriThozha. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" data-aos="fade-up" data-aos-delay="1000">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+
+        // Modern JavaScript for enhanced UX
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loading screen
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading-screen').style.display = 'none';
+                }, 500);
+            }, 1500);
+
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Mobile menu toggle
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                navToggle.classList.toggle('active');
+            });
+
+            // Dropdown functionality
+            const dropdowns = document.querySelectorAll('.dropdown');
+            dropdowns.forEach(dropdown => {
+                const toggle = dropdown.querySelector('.dropdown-toggle');
+                const menu = dropdown.querySelector('.dropdown-menu');
+                
+                toggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                });
+            });
+
+            // User menu functionality
+            const userMenu = document.querySelector('.user-menu');
+            if (userMenu) {
+                userMenu.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    userMenu.classList.toggle('active');
+                });
+            }
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.dropdown')) {
+                    dropdowns.forEach(dropdown => {
+                        dropdown.classList.remove('active');
+                    });
+                }
+                if (!e.target.closest('.user-menu')) {
+                    if (userMenu) userMenu.classList.remove('active');
+                }
+            });
+
+            // Feedback modal
+            const feedbackBtn = document.getElementById('feedbackBtn');
+            const feedbackModal = document.getElementById('feedbackModal');
+            const closeFeedback = document.getElementById('closeFeedback');
+            const cancelFeedback = document.getElementById('cancelFeedback');
+            const feedbackForm = document.getElementById('feedbackForm');
+
+            feedbackBtn.addEventListener('click', () => {
+                feedbackModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+
+            [closeFeedback, cancelFeedback].forEach(btn => {
+                btn.addEventListener('click', () => {
+                    feedbackModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                });
+            });
+
+            feedbackForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Thank you for your feedback!');
+                feedbackModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                feedbackForm.reset();
+            });
+
+            // Auto-hide flash messages
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.style.opacity = '0';
+                    setTimeout(() => alert.remove(), 300);
+                }, 5000);
+            });
+
+            // Back to top button
+            const backToTop = document.getElementById('backToTop');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add loading states to buttons
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (this.type === 'submit') {
+                        const originalContent = this.innerHTML;
+                        this.innerHTML = '<span class="loading"></span> Processing...';
+                        this.disabled = true;
+                        
+                        setTimeout(() => {
+                            this.innerHTML = originalContent;
+                            this.disabled = false;
+                        }, 2000);
+                    }
+                });
+            });
+
+            // Add ripple effect to buttons
+            function createRipple(event) {
+                const button = event.currentTarget;
+                const circle = document.createElement('span');
+                const diameter = Math.max(button.clientWidth, button.clientHeight);
+                const radius = diameter / 2;
+
+                circle.style.width = circle.style.height = `${diameter}px`;
+                circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
+                circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
+                circle.classList.add('ripple');
+
+                const ripple = button.getElementsByClassName('ripple')[0];
+                if (ripple) {
+                    ripple.remove();
+                }
+
+                button.appendChild(circle);
+            }
+
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('click', createRipple);
+            });
+
+            console.log('🚀 Modern Agricultural Platform loaded successfully!');
+        });
+    </script>
+
+    <!-- Page-specific scripts -->
+    {% block scripts %}{% endblock %}
+</body>
+</html>

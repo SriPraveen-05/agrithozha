@@ -1,0 +1,128 @@
+{% extends 'layout_complete.html' %}
+
+{% block title %}Login - AgriThozha{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth_modern.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="auth-container">
+    <div class="auth-background">
+        <div class="auth-overlay"></div>
+        <div class="auth-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+    </div>
+    
+    <div class="auth-content">
+        <div class="auth-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <img src="{{ url_for('static', filename='images/android-chrome-192x192.png') }}" alt="AgriThozha">
+                    <h1>AgriThozha</h1>
+                </div>
+                <h2 class="auth-title">Welcome Back!</h2>
+                <p class="auth-subtitle">Sign in to your account to continue your agricultural journey</p>
+            </div>
+            
+            <form class="auth-form" method="post" data-aos="fade-up" data-aos-delay="400">
+                <div class="form-group">
+                    <label for="email" class="form-label">
+                        <i class="fas fa-envelope"></i>
+                        Email Address
+                    </label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email" required>
+                    <div class="input-focus-line"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        <i class="fas fa-lock"></i>
+                        Password
+                    </label>
+                    <div class="password-input">
+                        <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password" required>
+                        <button type="button" class="password-toggle" id="passwordToggle">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="input-focus-line"></div>
+                </div>
+                
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="remember">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-lg auth-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Sign In</span>
+                    <div class="btn-loading">
+                        <div class="spinner"></div>
+                    </div>
+                </button>
+                
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+                
+                <div class="social-login">
+                    <button type="button" class="social-btn google-btn">
+                        <i class="fab fa-google"></i>
+                        <span>Continue with Google</span>
+                    </button>
+                    <button type="button" class="social-btn facebook-btn">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Continue with Facebook</span>
+                    </button>
+                </div>
+            </form>
+            
+            <div class="auth-footer" data-aos="fade-up" data-aos-delay="600">
+                <p>Don't have an account? <a href="{{ url_for('sign_up') }}" class="auth-link">Sign up here</a></p>
+            </div>
+        </div>
+        
+        <div class="auth-info" data-aos="fade-left" data-aos-delay="300">
+            <div class="info-content">
+                <h3>Why Choose AgriThozha?</h3>
+                <div class="info-features">
+                    <div class="info-feature">
+                        <i class="fas fa-seedling"></i>
+                        <div>
+                            <h4>AI-Powered Recommendations</h4>
+                            <p>Get intelligent crop and fertilizer suggestions based on your soil data</p>
+                        </div>
+                    </div>
+                    <div class="info-feature">
+                        <i class="fas fa-chart-line"></i>
+                        <div>
+                            <h4>Data Analytics</h4>
+                            <p>Track your farm's performance with detailed analytics and insights</p>
+                        </div>
+                    </div>
+                    <div class="info-feature">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div>
+                            <h4>Mobile Friendly</h4>
+                            <p>Access your farm data anywhere, anytime with our responsive design</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='scripts/auth_modern.js') }}"></script>
+{% endblock %}
+

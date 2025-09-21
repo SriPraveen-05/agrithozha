@@ -1,0 +1,491 @@
+{% extends 'layout_complete.html' %}
+
+{% block title %}AgriThozha - AI-Powered Agricultural Solutions{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home_complete.css') }}">
+{% endblock %}
+
+{% block body %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-background">
+        <div class="hero-shapes">
+            <div class="shape shape-1" data-aos="fade-up" data-aos-delay="200"></div>
+            <div class="shape shape-2" data-aos="fade-up" data-aos-delay="400"></div>
+            <div class="shape shape-3" data-aos="fade-up" data-aos-delay="600"></div>
+            <div class="shape shape-4" data-aos="fade-up" data-aos-delay="800"></div>
+        </div>
+        <div class="hero-particles" id="particles"></div>
+    </div>
+    
+    <div class="container">
+        <div class="hero-content" data-aos="fade-up" data-aos-delay="300">
+            <div class="hero-badge" data-aos="fade-up" data-aos-delay="400">
+                <i class="fas fa-robot"></i>
+                <span>AI-Powered Agriculture</span>
+            </div>
+            
+            <h1 class="hero-title">
+                Revolutionizing Agriculture with
+                <span class="gradient-text">Artificial Intelligence</span>
+            </h1>
+            
+            <p class="hero-subtitle">
+                Get intelligent crop recommendations, fertilizer suggestions, and disease detection 
+                powered by machine learning to maximize your farm's potential and ensure sustainable farming.
+            </p>
+            
+            <div class="hero-stats" data-aos="fade-up" data-aos-delay="600">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="95">0</div>
+                    <div class="stat-label">Accuracy Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="2200">0</div>
+                    <div class="stat-label">Data Points</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="22">0</div>
+                    <div class="stat-label">Crop Types</div>
+                </div>
+            </div>
+            
+            <div class="hero-cta" data-aos="fade-up" data-aos-delay="700">
+                <a href="{{ url_for('crop_recommendation') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-seedling"></i>
+                    <span>Get Started Free</span>
+                </a>
+                <a href="{{ url_for('data_analysis') }}" class="btn btn-outline btn-lg">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>View Analytics</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="hero-visual" data-aos="fade-left" data-aos-delay="500">
+            <div class="hero-card">
+                <div class="card-header">
+                    <h3>AI Crop Recommendation</h3>
+                    <p>Enter your soil data for instant recommendations</p>
+                </div>
+                <div class="card-content">
+                    <div class="input-group">
+                        <label>Nitrogen (N)</label>
+                        <div class="input-value">45 ppm</div>
+                    </div>
+                    <div class="input-group">
+                        <label>Phosphorus (P)</label>
+                        <div class="input-value">32 ppm</div>
+                    </div>
+                    <div class="input-group">
+                        <label>Temperature</label>
+                        <div class="input-value">28°C</div>
+                    </div>
+                    <div class="recommendation">
+                        <div class="recommended-crop">
+                            <i class="fas fa-seedling"></i>
+                            <span>Recommended: Rice</span>
+                        </div>
+                        <div class="confidence">
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" style="width: 95%"></div>
+                            </div>
+                            <span>95% Confidence</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hero-scroll" data-aos="fade-up" data-aos-delay="1000">
+        <div class="scroll-indicator">
+            <span>Scroll to explore</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <div class="section-badge">
+                <i class="fas fa-star"></i>
+                <span>Why Choose Us</span>
+            </div>
+            <h2 class="section-title">Advanced AI Technology for Modern Farming</h2>
+            <p class="section-subtitle">
+                Our cutting-edge platform combines machine learning, data analytics, and agricultural expertise 
+                to provide you with the most accurate and reliable farming recommendations.
+            </p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3 class="feature-title">AI-Powered Predictions</h3>
+                <p class="feature-description">
+                    Advanced machine learning models analyze soil conditions, weather patterns, 
+                    and historical data to provide accurate crop recommendations with 95% accuracy.
+                </p>
+                <div class="feature-stats">
+                    <div class="stat">
+                        <span class="stat-number">95%</span>
+                        <span class="stat-label">Accuracy</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">2,200+</span>
+                        <span class="stat-label">Data Points</span>
+                    </div>
+                </div>
+                <div class="feature-link">
+                    <a href="{{ url_for('crop_recommendation') }}">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">
+                    <i class="fas fa-flask"></i>
+                </div>
+                <h3 class="feature-title">Smart Fertilizer Guide</h3>
+                <p class="feature-description">
+                    Get personalized fertilizer recommendations based on your soil composition, 
+                    crop type, and environmental conditions for optimal growth.
+                </p>
+                <div class="feature-stats">
+                    <div class="stat">
+                        <span class="stat-number">7</span>
+                        <span class="stat-label">Fertilizer Types</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Combinations</span>
+                    </div>
+                </div>
+                <div class="feature-link">
+                    <a href="{{ url_for('fertilizer_recommendation') }}">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3 class="feature-title">Disease Detection</h3>
+                <p class="feature-description">
+                    Upload plant images to instantly identify diseases and get treatment 
+                    recommendations to protect your crops from potential threats.
+                </p>
+                <div class="feature-stats">
+                    <div class="stat">
+                        <span class="stat-number">Real-time</span>
+                        <span class="stat-label">Analysis</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">Instant</span>
+                        <span class="stat-label">Results</span>
+                    </div>
+                </div>
+                <div class="feature-link">
+                    <a href="{{ url_for('disease_identification') }}">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <div class="section-badge">
+                <i class="fas fa-cogs"></i>
+                <span>Our Services</span>
+            </div>
+            <h2 class="section-title">Comprehensive Agricultural Solutions</h2>
+            <p class="section-subtitle">
+                Everything you need to optimize your farming operations and maximize your crop yields.
+            </p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="service-image">
+                    <i class="fas fa-seedling"></i>
+                    <div class="service-overlay">
+                        <a href="{{ url_for('crop_recommendation') }}" class="service-btn">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-title">Crop Recommendation</h3>
+                    <p class="service-description">
+                        Get AI-powered crop suggestions based on your soil conditions, 
+                        climate, and farming goals for maximum yield.
+                    </p>
+                    <div class="service-features">
+                        <span class="feature-tag">AI-Powered</span>
+                        <span class="feature-tag">95% Accurate</span>
+                        <span class="feature-tag">Instant Results</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="service-image">
+                    <i class="fas fa-flask"></i>
+                    <div class="service-overlay">
+                        <a href="{{ url_for('fertilizer_recommendation') }}" class="service-btn">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-title">Fertilizer Guide</h3>
+                    <p class="service-description">
+                        Optimize your fertilizer usage with personalized recommendations 
+                        for maximum crop yield and cost efficiency.
+                    </p>
+                    <div class="service-features">
+                        <span class="feature-tag">Cost-Effective</span>
+                        <span class="feature-tag">Personalized</span>
+                        <span class="feature-tag">Eco-Friendly</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="service-image">
+                    <i class="fas fa-search"></i>
+                    <div class="service-overlay">
+                        <a href="{{ url_for('disease_identification') }}" class="service-btn">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-title">Disease Detection</h3>
+                    <p class="service-description">
+                        Identify plant diseases early with our advanced image recognition 
+                        technology and get treatment recommendations.
+                    </p>
+                    <div class="service-features">
+                        <span class="feature-tag">Early Detection</span>
+                        <span class="feature-tag">Image Analysis</span>
+                        <span class="feature-tag">Treatment Guide</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
+                <div class="service-image">
+                    <i class="fas fa-cloud-sun"></i>
+                    <div class="service-overlay">
+                        <a href="{{ url_for('check_weather') }}" class="service-btn">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="service-content">
+                    <h3 class="service-title">Weather Check</h3>
+                    <p class="service-description">
+                        Stay updated with real-time weather information to plan your 
+                        farming activities and protect your crops.
+                    </p>
+                    <div class="service-features">
+                        <span class="feature-tag">Real-Time</span>
+                        <span class="feature-tag">Accurate</span>
+                        <span class="feature-tag">Forecasting</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number" data-count="1000">0</div>
+                    <div class="stat-label">Active Farmers</div>
+                    <div class="stat-description">Trusted by farmers worldwide</div>
+                </div>
+            </div>
+            
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="stat-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number" data-count="22">0</div>
+                    <div class="stat-label">Crop Types</div>
+                    <div class="stat-description">Supported crop varieties</div>
+                </div>
+            </div>
+            
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number" data-count="95">0</div>
+                    <div class="stat-label">Accuracy Rate</div>
+                    <div class="stat-description">Prediction accuracy</div>
+                </div>
+            </div>
+            
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="stat-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="stat-number" data-count="2200">0</div>
+                    <div class="stat-label">Data Points</div>
+                    <div class="stat-description">Training data records</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <div class="section-badge">
+                <i class="fas fa-quote-left"></i>
+                <span>Testimonials</span>
+            </div>
+            <h2 class="section-title">What Our Farmers Say</h2>
+            <p class="section-subtitle">
+                Hear from farmers who have transformed their agricultural practices with our AI technology.
+            </p>
+        </div>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="testimonial-content">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "AgriInnovative has revolutionized my farming approach. The crop recommendations 
+                        are incredibly accurate and have increased my yield by 30% this season."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>John Smith</h4>
+                            <span>Rice Farmer, California</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="testimonial-content">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "The fertilizer recommendations helped me reduce costs by 25% while maintaining 
+                        the same quality. The AI really knows what it's doing!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Maria Garcia</h4>
+                            <span>Wheat Farmer, Texas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="testimonial-content">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Early disease detection saved my entire crop this year. The image recognition 
+                        feature is a game-changer for modern farming."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>David Johnson</h4>
+                            <span>Corn Farmer, Iowa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content" data-aos="fade-up">
+            <div class="cta-text">
+                <h2 class="cta-title">Ready to Transform Your Farming?</h2>
+                <p class="cta-subtitle">
+                    Join thousands of farmers who are already using AI to optimize their crop yields 
+                    and make data-driven decisions for sustainable agriculture.
+                </p>
+                <div class="cta-features">
+                    <div class="cta-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Free to get started</span>
+                    </div>
+                    <div class="cta-feature">
+                        <i class="fas fa-check"></i>
+                        <span>No credit card required</span>
+                    </div>
+                    <div class="cta-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Instant results</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cta-actions">
+                <a href="{{ url_for('sign_up') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Get Started Free</span>
+                </a>
+                <a href="{{ url_for('data_analysis') }}" class="btn btn-outline btn-lg">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>View Demo</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='scripts/home_complete.js') }}"></script>
+{% endblock %}

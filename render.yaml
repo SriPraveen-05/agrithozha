@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: agri-innovative
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -k eventlet -w 1 -b 0.0.0.0:$PORT app.app:app
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: MONGO_URI
+        # Set this in the Render dashboard to your MongoDB Atlas connection string
+        sync: false

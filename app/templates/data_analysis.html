@@ -1,0 +1,124 @@
+{% extends 'layout_complete.html' %}
+
+{% block title %}Data Analysis{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/data_analysis_styles.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="data-analysis-container">
+    <h1 class="main-title">📊 Agricultural Data Analysis</h1>
+    <p class="subtitle">Insights from our ML models and datasets</p>
+
+    {% if crop_stats %}
+    <div class="stats-section">
+        <h2>🌾 Crop Recommendation Data</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Records</h3>
+                <div class="stat-number">{{ crop_stats.total_crops }}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Unique Crops</h3>
+                <div class="stat-number">{{ crop_stats.unique_crops }}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Avg Temperature</h3>
+                <div class="stat-number">{{ "%.1f"|format(crop_stats.avg_temperature) }}°C</div>
+            </div>
+            <div class="stat-card">
+                <h3>Avg Humidity</h3>
+                <div class="stat-number">{{ "%.1f"|format(crop_stats.avg_humidity) }}%</div>
+            </div>
+            <div class="stat-card">
+                <h3>Avg pH Level</h3>
+                <div class="stat-number">{{ "%.1f"|format(crop_stats.avg_ph) }}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Avg Rainfall</h3>
+                <div class="stat-number">{{ "%.1f"|format(crop_stats.avg_rainfall) }}mm</div>
+            </div>
+        </div>
+
+        <div class="top-crops">
+            <h3>🌱 Top 10 Crops in Dataset</h3>
+            <div class="crops-list">
+                {% for crop, count in crop_stats.top_crops.items() %}
+                <div class="crop-item">
+                    <span class="crop-name">{{ crop.title() }}</span>
+                    <span class="crop-count">{{ count }} records</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if fertilizer_stats %}
+    <div class="stats-section">
+        <h2>🌿 Fertilizer Recommendation Data</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Records</h3>
+                <div class="stat-number">{{ fertilizer_stats.total_fertilizers }}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Unique Fertilizers</h3>
+                <div class="stat-number">{{ fertilizer_stats.unique_fertilizers }}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Avg Temperature</h3>
+                <div class="stat-number">{{ "%.1f"|format(fertilizer_stats.avg_temperature) }}°C</div>
+            </div>
+            <div class="stat-card">
+                <h3>Avg Humidity</h3>
+                <div class="stat-number">{{ "%.1f"|format(fertilizer_stats.avg_humidity) }}%</div>
+            </div>
+            <div class="stat-card">
+                <h3>Avg Moisture</h3>
+                <div class="stat-number">{{ "%.1f"|format(fertilizer_stats.avg_moisture) }}%</div>
+            </div>
+        </div>
+
+        <div class="fertilizer-distribution">
+            <h3>🌿 Fertilizer Distribution</h3>
+            <div class="fertilizer-list">
+                {% for fertilizer, count in fertilizer_stats.fertilizer_distribution.items() %}
+                <div class="fertilizer-item">
+                    <span class="fertilizer-name">{{ fertilizer }}</span>
+                    <span class="fertilizer-count">{{ count }} uses</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="soil-types">
+            <h3>🏞️ Soil Type Distribution</h3>
+            <div class="soil-list">
+                {% for soil_type, count in fertilizer_stats.soil_type_distribution.items() %}
+                <div class="soil-item">
+                    <span class="soil-name">{{ soil_type }}</span>
+                    <span class="soil-count">{{ count }} records</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="api-section">
+        <h2>🔗 API Endpoints</h2>
+        <p>Access raw data through our API endpoints:</p>
+        <div class="api-links">
+            <a href="/api/crop_data" class="api-link" target="_blank">📊 Crop Data API</a>
+            <a href="/api/fertilizer_data" class="api-link" target="_blank">🌿 Fertilizer Data API</a>
+        </div>
+    </div>
+
+    <div class="back-section">
+        <a href="{{ url_for('home') }}" class="back-button">🏠 Back to Home</a>
+    </div>
+</div>
+{% endblock %}
+

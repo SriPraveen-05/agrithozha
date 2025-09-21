@@ -1,0 +1,190 @@
+{% extends 'layout_complete.html' %}
+
+{% block title %}Sign Up - AgriThozha{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth_modern.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="auth-container">
+    <div class="auth-background">
+        <div class="auth-overlay"></div>
+        <div class="auth-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+    </div>
+    
+    <div class="auth-content">
+        <div class="auth-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <img src="{{ url_for('static', filename='images/android-chrome-192x192.png') }}" alt="AgriThozha">
+                    <h1>AgriThozha</h1>
+                </div>
+                <h2 class="auth-title">Join AgriThozha Today!</h2>
+                <p class="auth-subtitle">Create your account and start your smart farming journey</p>
+            </div>
+            
+            <form class="auth-form" method="post" data-aos="fade-up" data-aos-delay="400">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name" class="form-label">
+                            <i class="fas fa-user"></i>
+                            First Name
+                        </label>
+                        <input type="text" id="first_name" name="first_name" class="form-input" placeholder="Enter first name" required>
+                        <div class="input-focus-line"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="last_name" class="form-label">
+                            <i class="fas fa-user"></i>
+                            Last Name
+                        </label>
+                        <input type="text" id="last_name" name="last_name" class="form-input" placeholder="Enter last name" required>
+                        <div class="input-focus-line"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">
+                        <i class="fas fa-envelope"></i>
+                        Email Address
+                    </label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email" required>
+                    <div class="input-focus-line"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        <i class="fas fa-lock"></i>
+                        Password
+                    </label>
+                    <div class="password-input">
+                        <input type="password" id="password" name="password" class="form-input" placeholder="Create a password" required>
+                        <button type="button" class="password-toggle" id="passwordToggle">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="input-focus-line"></div>
+                    <div class="password-strength">
+                        <div class="strength-bar">
+                            <div class="strength-fill" id="strengthFill"></div>
+                        </div>
+                        <span class="strength-text" id="strengthText">Password strength</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm_password" class="form-label">
+                        <i class="fas fa-lock"></i>
+                        Confirm Password
+                    </label>
+                    <div class="password-input">
+                        <input type="password" id="confirm_password" name="confirm_password" class="form-input" placeholder="Confirm your password" required>
+                        <button type="button" class="password-toggle" id="confirmPasswordToggle">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="input-focus-line"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="farm_type" class="form-label">
+                        <i class="fas fa-seedling"></i>
+                        Farm Type
+                    </label>
+                    <select id="farm_type" name="farm_type" class="form-input" required>
+                        <option value="">Select your farm type</option>
+                        <option value="crop">Crop Farming</option>
+                        <option value="livestock">Livestock Farming</option>
+                        <option value="mixed">Mixed Farming</option>
+                        <option value="organic">Organic Farming</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <div class="input-focus-line"></div>
+                </div>
+                
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" name="terms" required>
+                        <span class="checkmark"></span>
+                        I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="terms-link">Privacy Policy</a>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-lg auth-btn">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Create Account</span>
+                    <div class="btn-loading">
+                        <div class="spinner"></div>
+                    </div>
+                </button>
+                
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+                
+                <div class="social-login">
+                    <button type="button" class="social-btn google-btn">
+                        <i class="fab fa-google"></i>
+                        <span>Sign up with Google</span>
+                    </button>
+                    <button type="button" class="social-btn facebook-btn">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Sign up with Facebook</span>
+                    </button>
+                </div>
+            </form>
+            
+            <div class="auth-footer" data-aos="fade-up" data-aos-delay="600">
+                <p>Already have an account? <a href="{{ url_for('login') }}" class="auth-link">Sign in here</a></p>
+            </div>
+        </div>
+        
+        <div class="auth-info" data-aos="fade-left" data-aos-delay="300">
+            <div class="info-content">
+                <h3>Start Your Smart Farming Journey</h3>
+                <div class="info-features">
+                    <div class="info-feature">
+                        <i class="fas fa-brain"></i>
+                        <div>
+                            <h4>AI-Powered Insights</h4>
+                            <p>Get personalized recommendations for crops, fertilizers, and farming practices</p>
+                        </div>
+                    </div>
+                    <div class="info-feature">
+                        <i class="fas fa-search"></i>
+                        <div>
+                            <h4>Disease Detection</h4>
+                            <p>Identify plant diseases early with our advanced image recognition technology</p>
+                        </div>
+                    </div>
+                    <div class="info-feature">
+                        <i class="fas fa-cloud-sun"></i>
+                        <div>
+                            <h4>Weather Integration</h4>
+                            <p>Make informed decisions with real-time weather data and forecasts</p>
+                        </div>
+                    </div>
+                    <div class="info-feature">
+                        <i class="fas fa-chart-bar"></i>
+                        <div>
+                            <h4>Performance Analytics</h4>
+                            <p>Track your farm's progress with detailed analytics and reporting</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='scripts/auth_modern.js') }}"></script>
+{% endblock %}
+

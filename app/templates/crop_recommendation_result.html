@@ -1,0 +1,63 @@
+{% extends 'layout_complete.html' %}
+
+
+{%  block title %} Crop Recommendation  {% endblock %}
+{%block styles%} <link rel="stylesheet" type="text/css" href= "{{url_for('static', filename= 'css/crop_recommendation_result_styles.css' ) }}"> {% endblock %}
+
+{%block body %}
+
+
+<div class="result">
+<h2 class="result_heading"> CROP RECOMMENDATION</h2><br>
+<p class="result_subheading"><i class="fa-solid fa-leaf" style="color: #63E6BE;"></i>  Based on the values you have entered in the form we recommend you to plant this crop in your land!!!   <i class="fa-solid fa-leaf" style="color: #63E6BE;"></i></p>
+<p class="prediction_result"><SPAN class="result_title">CROP NAME :  </SPAN> <SPAN class="prediction">{{ myprediction}}</SPAN></p>
+
+{% if confidence %}
+<p class="confidence_info"><SPAN class="confidence_title">CONFIDENCE :  </SPAN> <SPAN class="confidence">{{ confidence}}</SPAN></p>
+{% endif %}
+
+{% if crop_info %}
+<div class="crop_details">
+    <h3>📊 Crop Information from Dataset</h3>
+    <div class="info-grid">
+        <div class="info-item">
+            <span class="info-label">Sample Records:</span>
+            <span class="info-value">{{ crop_info.sample_count }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Avg Nitrogen:</span>
+            <span class="info-value">{{ "%.1f"|format(crop_info.avg_nitrogen) }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Avg Phosphorus:</span>
+            <span class="info-value">{{ "%.1f"|format(crop_info.avg_phosphorus) }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Avg Potassium:</span>
+            <span class="info-value">{{ "%.1f"|format(crop_info.avg_potassium) }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Avg Temperature:</span>
+            <span class="info-value">{{ "%.1f"|format(crop_info.avg_temperature) }}°C</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Avg Humidity:</span>
+            <span class="info-value">{{ "%.1f"|format(crop_info.avg_humidity) }}%</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Avg pH:</span>
+            <span class="info-value">{{ "%.1f"|format(crop_info.avg_ph) }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Avg Rainfall:</span>
+            <span class="info-value">{{ "%.1f"|format(crop_info.avg_rainfall) }}mm</span>
+        </div>
+    </div>
+</div>
+{% endif %}
+     <div class="try_again">
+    <a class="button" href="{{ url_for('crop_recommendation') }}"><b>Try Again</b></a>
+</div>
+</div>
+
+{% endblock %}

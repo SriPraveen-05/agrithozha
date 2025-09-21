@@ -1,0 +1,47 @@
+{% extends 'layout_complete.html' %}
+
+{% block title  %}Add Crop{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/complete_design.css') }}">
+{% endblock %}
+
+{% block body %}
+<div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
+    <div class="card" style="max-width: 500px; width: 100%; margin: 2rem auto;">
+        <div class="card-header">
+            <h2 style="margin: 0; text-align: center;">Add Crop Details</h2>
+        </div>
+        <div class="card-body">
+            <form action="" method="post">
+                <div class="form-group">
+                    <label class="form-label" for="crop_name">Crop Name</label>
+                    <input class="form-input" type="text" id="crop_name" name="crop_name" placeholder="Crop Name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="date_planted">Date Planted</label>
+                    <input class="form-input" type="date" id="date_planted" name="date_planted" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="land_details">Land Details</label>
+                    <textarea class="form-input" id="land_details" name="land_details" placeholder="1 Acre , Survey Number: 765" required rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="fertilizer_details">Fertilizer Details</label>
+                    <textarea class="form-input" id="fertilizer_details" name="fertilizer_details" placeholder="Fertilizer Name =====> Cost" required rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="pesticides_details">Pesticides Details</label>
+                    <textarea class="form-input" id="pesticides_details" name="pesticides_details" placeholder="Pesticide Name =====> Cost" required rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="other_details">Other Details</label>
+                    <textarea class="form-input" id="other_details" name="other_details" placeholder="Total Cost ==> cost && Total Yield ==> tones && Total Profit ==> Profit" required rows="2"></textarea>
+                </div>
+                <button class="btn btn-primary" type="submit" style="width: 100%;">Add Crop</button>
+            </form>
+            <a class="btn btn-outline" style="width: 100%; margin-top: 1rem; text-align: center;" href="{{ url_for('dashboard') }}">Back to Crop Details</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
