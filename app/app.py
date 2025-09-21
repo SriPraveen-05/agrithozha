@@ -679,90 +679,57 @@ def api_health():
 @app.route('/api/crop-recommendation', methods=['POST'])
 def api_crop_recommendation():
     try:
-        payload = request.get_json(silent=True) or {}
-        data, errors = validate_crop_form(payload)
-        if errors:
-            return jsonify({'status': 'error', 'errors': errors}), 400
-
-        nitrogen = data['nitrogen']
-        phosphorus = data['phosphorus']
-        potassium = data['potassium']
-        temperature = data['temperature']
-        humidity = data['humidity']
-        ph = data['ph']
-        rainfall = data['rainfall']
-
-        result = None
-        used = 'rule_based'
+        data = request.get_json()
+        nitrogen = float(data.get('nitrogen', 0))
+        phosphorus = float(data.get('phosphorus', 0))
+        potassium = float(data.get('potassium', 0))
+        temperature = float(data.get('temperature', 0))
+        humidity = float(data.get('humidity', 0))
+        ph = float(data.get('ph', 0))
+        rainfall = float(data.get('rainfall', 0))
         if scaler and crop_model:
             try:
                 input_data = [nitrogen, phosphorus, potassium, temperature, humidity, ph, rainfall]
                 normalized_input_data = scaler.transform([input_data])
                 prediction = crop_model.predict(normalized_input_data)
-                result = prediction[0]
-                used = 'ml_model'
+                myprediction = prediction[0]
             except Exception as e:
-                print(f"[api/crop] ML model error: {e}")
-                result = get_simple_crop_recommendation(nitrogen, phosphorus, potassium, temperature, humidity, ph, rainfall)
+                myprediction = get_simple_crop_recommendation(nitrogen, phosphorus, potassium, temperature, humidity, ph, rainfall)
         else:
-            result = get_simple_crop_recommendation(nitrogen, phosphorus, potassium, temperature, humidity, ph, rainfall)
-
-        return jsonify({
-            'status': 'ok',
-            'recommendation': {
-                'crop': result,
-                'method': used
-            }
-        }), 200
+            myprediction = get_simple_crop_recommendation(nitrogen, phosphorus, potassium, temperature, humidity, ph, rainfall)
+        return jsonify({'prediction': myprediction})
     except Exception as e:
-        return jsonify({'status': 'error', 'message': str(e)}), 500
+        return jsonify({'error': str(e)}), 400
 
 @app.route('/api/fertilizer-recommendation', methods=['POST'])
 def api_fertilizer_recommendation():
     try:
-        payload = request.get_json(silent=True) or {}
-        data, errors = validate_fertilizer_form(payload)
-        if errors:
-            return jsonify({'status': 'error', 'errors': errors}), 400
-
-        nitrogen = data['nitrogen']
-        phosphorus = data['phosphorous']
-        potassium = data['potassium']
-        temperature = data['temperature']
-        humidity = data['humidity']
-        moisture = data['moisture']
-        soil_type = data['soilType']
-        crop_type = data['cropType']
-
-        recommended_fertilizer = None
-        used = 'rule_based'
+        data = request.get_json()
+        nitrogen = float(data.get('nitrogen', 0))
+        phosphorus = float(data.get('phosphorous', 0))
+        potassium = float(data.get('potassium', 0))
+        temperature = float(data.get('temperature', 0))
+        humidity = float(data.get('humidity', 0))
+        moisture = float(data.get('moisture', 0))
+        soil_type = data.get('soilType', '')
+        crop_type = data.get('cropType', '')
         if standard_scaler and fertilizer_model:
             try:
                 from sklearn.preprocessing import LabelEncoder
                 soil_type_encoded = LabelEncoder().fit_transform([soil_type])
                 crop_type_encoded = LabelEncoder().fit_transform([crop_type])
-
                 input_data = [nitrogen, phosphorus, potassium, temperature, humidity, moisture, soil_type_encoded[0], crop_type_encoded[0]]
                 normalized_input_data = standard_scaler.transform([input_data])
                 prediction = fertilizer_model.predict(normalized_input_data)
                 reverse_fertilizer = {0: '10-26-26', 1: '14-35-14', 2: '17-17-17', 3: '20-20', 4: '28-28', 5: 'DAP', 6: 'Urea'}
-                recommended_fertilizer = reverse_fertilizer.get(int(prediction[0]), 'Urea')
-                used = 'ml_model'
+                recommended_fertilizer = reverse_fertilizer[prediction[0]]
             except Exception as e:
-                print(f"[api/fertilizer] ML model error: {e}")
                 recommended_fertilizer = get_simple_fertilizer_recommendation(nitrogen, phosphorus, potassium, soil_type, crop_type)
         else:
             recommended_fertilizer = get_simple_fertilizer_recommendation(nitrogen, phosphorus, potassium, soil_type, crop_type)
-
-        return jsonify({
-            'status': 'ok',
-            'recommendation': {
-                'fertilizer': recommended_fertilizer,
-                'method': used
-            }
-        }), 200
+        return jsonify({'recommendation': recommended_fertilizer})
     except Exception as e:
-        return jsonify({'status': 'error', 'message': str(e)}), 500
+        return jsonify({'error': str(e)}), 400
 
 @app.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
